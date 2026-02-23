@@ -1,13 +1,15 @@
 /* ========== VARIABLES ========== */
 :root {
     --crimson: #df2229;
+    --crimson-light: #e64a50;
     --pink-light: #fdf2f1;
     --dark-main: #2e2d2c;
     --dark-soft: #4a4a4a;
     --orchid: #e18c94;
     --cream: #faf7f2;
-    --gold: #c6a45c;
     --transition: all 0.3s ease;
+    --shadow: 0 10px 30px rgba(0,0,0,0.1);
+    --shadow-hover: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 /* ========== RESET ========== */
@@ -17,96 +19,348 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
 body {
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #ffffff, var(--pink-light));
-    min-height: 100vh;
+    background: var(--pink-light);
+    height: 100vh;
+    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    overflow-x: hidden;
     color: var(--dark-main);
+    line-height: 1.6;
 }
 
-/* ========== THREAD BACKGROUND ANIMATION ========== */
-.thread-background {
+/* ========== CIRCULAR WORM THREADS BACKGROUND ========== */
+.worm-threads {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none;
     z-index: 0;
     overflow: hidden;
+    pointer-events: none;
 }
 
-.thread-1, .thread-2, .thread-3, .thread-4, .thread-5 {
+.worm {
     position: absolute;
-    background: linear-gradient(90deg, transparent, var(--crimson), var(--orchid), var(--crimson), transparent);
-    height: 2px;
-    width: 200%;
-    opacity: 0.15;
-    animation: threadFloat 25s infinite linear;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    opacity: 0.1;
+    filter: blur(0.5px);
 }
 
-.thread-1 {
+/* Fixed animation durations - using direct values instead of variables */
+.worm-1 {
+    width: 800px;
+    height: 800px;
+    top: -200px;
+    left: -200px;
+    border-width: 2px;
+    border-top-color: var(--crimson);
+    border-right-color: var(--orchid);
+    opacity: 0.08;
+    animation: wormMove 60s infinite linear;
+}
+
+.worm-2 {
+    width: 600px;
+    height: 600px;
+    bottom: -150px;
+    right: -150px;
+    border-width: 1.5px;
+    border-top-color: var(--orchid);
+    border-right-color: var(--crimson);
+    opacity: 0.1;
+    animation: wormMove 45s infinite linear reverse;
+}
+
+.worm-3 {
+    width: 400px;
+    height: 400px;
+    top: 40%;
+    left: 30%;
+    border-width: 1px;
+    border-top-color: var(--crimson);
+    border-right-color: var(--orchid);
+    opacity: 0.12;
+    animation: wormMove 30s infinite linear;
+}
+
+.worm-4 {
+    width: 500px;
+    height: 500px;
     top: 10%;
+    right: 5%;
+    border-width: 1.2px;
+    border-top-color: var(--orchid);
+    border-right-color: var(--crimson);
+    opacity: 0.09;
+    animation: wormMove 50s infinite linear;
+}
+
+.worm-5 {
+    width: 900px;
+    height: 900px;
+    bottom: -250px;
+    left: 10%;
+    border-width: 2.5px;
+    border-top-color: var(--crimson);
+    border-right-color: var(--orchid);
+    opacity: 0.06;
+    animation: wormMove 70s infinite linear reverse;
+}
+
+.worm-6 {
+    width: 300px;
+    height: 300px;
+    top: 60%;
+    right: 20%;
+    border-width: 1px;
+    border-top-color: var(--orchid);
+    border-right-color: var(--crimson);
+    opacity: 0.15;
+    animation: wormMove 25s infinite linear, wormPulse 8s infinite ease-in-out;
+}
+
+.worm-7 {
+    width: 200px;
+    height: 200px;
+    bottom: 20%;
+    left: 15%;
+    border-width: 0.8px;
+    border-top-color: var(--crimson);
+    border-right-color: var(--orchid);
+    opacity: 0.2;
+    animation: wormMove 20s infinite linear;
+}
+
+.worm-8 {
+    width: 700px;
+    height: 400px;
+    top: 15%;
+    left: 20%;
+    border-width: 1.8px;
+    border-top-color: var(--orchid);
+    border-right-color: var(--crimson);
+    border-radius: 60% 40% 50% 50%;
+    opacity: 0.07;
+    animation: wormMoveElliptical 55s infinite linear;
+}
+
+.worm-9 {
+    width: 350px;
+    height: 350px;
+    bottom: 5%;
+    right: 25%;
+    border-width: 1px;
+    border-top-color: var(--crimson);
+    border-right-color: var(--orchid);
+    opacity: 0.12;
+    animation: wormMoveWobbly 35s infinite linear;
+}
+
+.worm-10 {
+    width: 150px;
+    height: 150px;
+    top: 70%;
+    left: 40%;
+    border-width: 0.6px;
+    border-top-color: var(--orchid);
+    border-right-color: var(--crimson);
+    opacity: 0.25;
+    animation: wormMove 15s infinite linear;
+}
+
+@keyframes wormMove {
+    0% {
+        transform: rotate(0deg) translateX(10px) rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg) translateX(10px) rotate(-360deg);
+    }
+}
+
+@keyframes wormMoveElliptical {
+    0% {
+        transform: rotate(0deg) translateX(20px) rotate(0deg) scaleX(1.2);
+    }
+    25% {
+        transform: rotate(90deg) translateX(15px) rotate(-90deg) scaleX(1.1);
+    }
+    50% {
+        transform: rotate(180deg) translateX(20px) rotate(-180deg) scaleX(1.3);
+    }
+    75% {
+        transform: rotate(270deg) translateX(15px) rotate(-270deg) scaleX(1.1);
+    }
+    100% {
+        transform: rotate(360deg) translateX(20px) rotate(-360deg) scaleX(1.2);
+    }
+}
+
+@keyframes wormMoveWobbly {
+    0% {
+        transform: rotate(0deg) translateX(5px) rotate(0deg);
+    }
+    20% {
+        transform: rotate(72deg) translateX(12px) rotate(-72deg);
+    }
+    40% {
+        transform: rotate(144deg) translateX(8px) rotate(-144deg);
+    }
+    60% {
+        transform: rotate(216deg) translateX(15px) rotate(-216deg);
+    }
+    80% {
+        transform: rotate(288deg) translateX(7px) rotate(-288deg);
+    }
+    100% {
+        transform: rotate(360deg) translateX(5px) rotate(-360deg);
+    }
+}
+
+@keyframes wormPulse {
+    0%, 100% {
+        opacity: 0.1;
+        border-width: 1px;
+    }
+    50% {
+        opacity: 0.2;
+        border-width: 2px;
+    }
+}
+
+/* Inner worms */
+.worm-inner {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: 20%;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    border-top-color: var(--crimson);
+    border-right-color: var(--orchid);
+    opacity: 0.2;
+    animation: wormInnerMove 15s infinite linear;
+}
+
+.worm-1 .worm-inner {
+    animation: wormInnerMove 20s infinite linear;
+}
+
+.worm-3 .worm-inner {
+    animation: wormInnerMove 12s infinite linear;
+}
+
+.worm-5 .worm-inner {
+    animation: wormInnerMove 25s infinite linear;
+}
+
+.worm-8 .worm-inner {
+    animation: wormInnerMove 18s infinite linear;
+}
+
+@keyframes wormInnerMove {
+    0% {
+        transform: rotate(0deg) translateX(5px) rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg) translateX(5px) rotate(360deg);
+    }
+}
+
+/* ========== ELEGANT SILK BACKGROUND ========== */
+.silk-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.silk-wave {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
     left: -50%;
-    transform: rotate(3deg);
+    background: radial-gradient(circle at 30% 50%, rgba(223, 34, 41, 0.02) 0%, transparent 50%);
+    animation: silkFlow 20s infinite ease-in-out;
+}
+
+.silk-wave:nth-child(2) {
+    background: radial-gradient(circle at 70% 30%, rgba(225, 140, 148, 0.02) 0%, transparent 50%);
+    animation-delay: -5s;
+}
+
+.silk-wave:nth-child(3) {
+    background: radial-gradient(circle at 40% 80%, rgba(223, 34, 41, 0.01) 0%, transparent 60%);
+    animation-delay: -10s;
+}
+
+@keyframes silkFlow {
+    0%, 100% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(5deg) scale(1.05);
+    }
+}
+
+/* ========== MINIMAL THREAD DETAILS ========== */
+.thread-detail {
+    position: fixed;
+    width: 1px;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, var(--crimson), transparent);
+    opacity: 0.15;
+    z-index: 1;
+    animation: threadGlide 15s infinite ease-in-out;
+    pointer-events: none;
+}
+
+.thread-detail:nth-child(1) {
+    left: 15%;
+    top: -50px;
     animation-delay: 0s;
 }
 
-.thread-2 {
-    top: 30%;
-    left: -30%;
-    transform: rotate(-2deg);
+.thread-detail:nth-child(2) {
+    right: 20%;
+    top: -30px;
+    height: 150px;
     animation-delay: 5s;
-    width: 180%;
+    opacity: 0.1;
 }
 
-.thread-3 {
-    top: 50%;
-    left: -70%;
-    transform: rotate(4deg);
+.thread-detail:nth-child(3) {
+    left: 40%;
+    bottom: -80px;
+    height: 200px;
     animation-delay: 10s;
-    width: 220%;
+    opacity: 0.08;
 }
 
-.thread-4 {
-    top: 70%;
-    left: -20%;
-    transform: rotate(-3deg);
-    animation-delay: 15s;
-    width: 190%;
-}
-
-.thread-5 {
-    top: 90%;
-    left: -60%;
-    transform: rotate(2deg);
-    animation-delay: 20s;
-    width: 210%;
-}
-
-@keyframes threadFloat {
-    0% {
-        transform: translateX(0) rotate(3deg);
-        opacity: 0.1;
-    }
-    25% {
-        opacity: 0.2;
+@keyframes threadGlide {
+    0%, 100% {
+        transform: translateY(0);
     }
     50% {
-        transform: translateX(20%) rotate(3deg);
-        opacity: 0.15;
-    }
-    75% {
-        opacity: 0.2;
-    }
-    100% {
-        transform: translateX(0) rotate(3deg);
-        opacity: 0.1;
+        transform: translateY(30px);
     }
 }
 
@@ -114,514 +368,573 @@ body {
 .coming-soon-container {
     position: relative;
     z-index: 10;
-    max-width: 1000px;
+    max-width: 900px;
     width: 90%;
-    margin: 40px auto;
+    margin: 0 auto;
     text-align: center;
-    padding: 50px 40px;
+    padding: 60px 40px;
     background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
-    border-radius: 40px;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
     border: 1px solid rgba(223, 34, 41, 0.1);
+    max-height: 90vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.coming-soon-container::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
 }
 
 /* ========== LOGO ========== */
 .logo-wrapper {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .logo {
-    height: 80px;
+    height: 70px;
     width: auto;
-    margin-bottom: 10px;
-    animation: softPulse 3s infinite ease-in-out;
+    opacity: 0.9;
+    transition: var(--transition);
 }
 
-@keyframes softPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+.logo:hover {
+    opacity: 1;
+    transform: scale(1.02);
 }
 
-.brand-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--crimson);
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-}
-
-/* ========== KNITTING NEEDLES ANIMATION ========== */
-.knitting-needles {
+/* ========== ELEGANT DIVIDER ========== */
+.divider {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 30px;
-    margin: 30px 0 40px;
-    position: relative;
-    height: 100px;
+    gap: 12px;
+    margin-bottom: 40px;
 }
 
-.needle {
-    position: relative;
-    width: 100px;
-    height: 8px;
+.divider span {
+    height: 1px;
 }
 
-.left-needle {
-    animation: needleMoveLeft 2s infinite ease-in-out;
-}
-
-.right-needle {
-    animation: needleMoveRight 2s infinite ease-in-out;
-}
-
-.needle-tip {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: var(--gold);
-    border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
-    box-shadow: 0 0 10px rgba(198, 164, 92, 0.5);
-}
-
-.left-needle .needle-tip {
-    right: -10px;
-}
-
-.right-needle .needle-tip {
-    left: -10px;
-}
-
-.needle-body {
-    position: absolute;
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, #c0c0c0, #e0e0e0);
-    border-radius: 4px;
-    top: 50%;
-    transform: translateY(-50%);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.left-needle .needle-body {
-    right: 0;
-}
-
-.right-needle .needle-body {
-    left: 0;
-}
-
-.yarn-ball {
-    position: relative;
+.divider span:nth-child(1),
+.divider span:nth-child(3) {
     width: 60px;
-    height: 60px;
-    animation: yarnSpin 4s infinite linear;
+    background: var(--dark-soft);
+    opacity: 0.2;
 }
 
-.yarn-circle {
-    width: 60px;
-    height: 60px;
-    background: radial-gradient(circle at 30% 30%, var(--crimson), #b81b21);
-    border-radius: 50%;
-    box-shadow: 0 5px 20px rgba(223, 34, 41, 0.4);
-    position: relative;
-}
-
-.yarn-circle::after {
-    content: '';
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    background: rgba(255,255,255,0.3);
-    border-radius: 50%;
-    top: 15px;
-    left: 15px;
-}
-
-.yarn-thread {
-    position: absolute;
+.divider span:nth-child(2) {
     width: 30px;
-    height: 3px;
     background: var(--crimson);
-    top: 50%;
-    left: -20px;
-    transform: translateY(-50%);
-    opacity: 0.6;
-}
-
-.yarn-thread::after {
-    content: '';
-    position: absolute;
-    width: 15px;
-    height: 3px;
-    background: var(--crimson);
-    top: -5px;
-    left: 5px;
-    transform: rotate(10deg);
     opacity: 0.4;
 }
 
-@keyframes needleMoveLeft {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(-10px); }
-}
-
-@keyframes needleMoveRight {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(10px); }
-}
-
-@keyframes yarnSpin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* ========== TITLE ========== */
-.coming-soon-title {
+/* ========== MAIN TITLE ========== */
+.main-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 700;
-    margin-bottom: 20px;
-    line-height: 1.2;
-}
-
-.title-word {
-    display: inline-block;
-    margin: 0 5px;
-}
-
-.title-word.highlight {
-    background: linear-gradient(135deg, var(--crimson), var(--orchid));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    position: relative;
-}
-
-.title-word.highlight::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, var(--crimson), var(--orchid));
-    animation: underlineGrow 2s infinite;
-}
-
-@keyframes underlineGrow {
-    0%, 100% { transform: scaleX(0.5); opacity: 0.5; }
-    50% { transform: scaleX(1); opacity: 1; }
-}
-
-/* ========== TEXT ========== */
-.coming-soon-text {
-    font-size: 1.1rem;
-    color: var(--dark-soft);
-    max-width: 600px;
-    margin: 0 auto 40px;
-    line-height: 1.8;
-}
-
-/* ========== COUNTDOWN TIMER ========== */
-.countdown-timer {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-}
-
-.timer-box {
-    background: white;
-    padding: 20px 25px;
-    border-radius: 20px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
-    min-width: 120px;
-    border: 1px solid rgba(223, 34, 41, 0.1);
-    transition: var(--transition);
-}
-
-.timer-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(223, 34, 41, 0.15);
-    border-color: var(--crimson);
-}
-
-.timer-number {
-    display: block;
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--crimson);
-    line-height: 1;
-    margin-bottom: 5px;
-    font-family: 'Playfair Display', serif;
-}
-
-.timer-label {
-    font-size: 0.85rem;
-    color: var(--dark-soft);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* ========== PROGRESS BAR ========== */
-.progress-container {
-    max-width: 500px;
-    margin: 0 auto 30px;
-    height: 10px;
-    background: rgba(223, 34, 41, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.progress-bar {
-    height: 100%;
-    width: 75%;
-    background: linear-gradient(90deg, var(--crimson), var(--orchid));
-    border-radius: 10px;
-    animation: progressPulse 2s infinite;
-    position: relative;
-}
-
-.progress-bar::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    animation: progressShine 2s infinite;
-}
-
-@keyframes progressPulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.8; }
-}
-
-@keyframes progressShine {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-.progress-text {
-    color: var(--dark-soft);
-    font-size: 0.95rem;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 500;
     margin-bottom: 30px;
-}
-
-.progress-text span {
-    color: var(--crimson);
-    font-weight: 600;
-}
-
-/* ========== NOTIFY FORM ========== */
-.notify-form {
-    max-width: 500px;
-    margin: 0 auto 30px;
-}
-
-.notify-form h3 {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
     color: var(--dark-main);
 }
 
-.form-group {
-    display: flex;
-    gap: 10px;
-    background: white;
-    padding: 5px;
-    border-radius: 50px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(223, 34, 41, 0.1);
+.title-line {
+    display: block;
 }
 
-.form-group input {
-    flex: 1;
-    padding: 15px 20px;
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    border-radius: 50px;
-    font-family: 'Inter', sans-serif;
-}
-
-.form-group input:focus {
-    box-shadow: 0 0 0 2px rgba(223, 34, 41, 0.2);
-}
-
-.notify-btn {
-    background: var(--crimson);
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 50px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    white-space: nowrap;
-}
-
-.notify-btn:hover {
-    background: var(--orchid);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(223, 34, 41, 0.3);
-}
-
-.notify-btn i {
-    font-size: 1rem;
-    transition: transform 0.3s ease;
-}
-
-.notify-btn:hover i {
-    transform: translateX(5px);
-}
-
-.form-note {
-    font-size: 0.8rem;
-    color: #999;
-    margin-top: 10px;
-}
-
-/* ========== SOCIAL LINKS ========== */
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.social-link {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: white;
-    color: var(--dark-soft);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition);
-    border: 1px solid rgba(223, 34, 41, 0.2);
-    text-decoration: none;
-    font-size: 1.2rem;
-}
-
-.social-link:hover {
-    background: var(--crimson);
-    color: white;
-    transform: translateY(-5px);
-    border-color: var(--crimson);
-    box-shadow: 0 10px 20px rgba(223, 34, 41, 0.2);
-}
-
-/* ========== CONTACT INFO ========== */
-.contact-info {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    color: var(--dark-soft);
-    font-size: 0.95rem;
-}
-
-.contact-info p {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.contact-info i {
+.title-line.accent {
+    font-weight: 700;
     color: var(--crimson);
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.title-line.accent::before,
+.title-line.accent::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 1px;
+    background: var(--crimson);
+    opacity: 0.3;
+}
+
+.title-line.accent::before {
+    left: -20px;
+}
+
+.title-line.accent::after {
+    right: -20px;
+}
+
+/* ========== DESCRIPTION ========== */
+.description {
     font-size: 1rem;
+    color: var(--dark-soft);
+    max-width: 550px;
+    margin: 0 auto 40px;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+    line-height: 1.8;
+}
+
+/* ========== REFINED COUNTDOWN ========== */
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.countdown-item {
+    position: relative;
+    min-width: 100px;
+}
+
+.countdown-number {
+    display: block;
+    font-size: 2.8rem;
+    font-weight: 400;
+    color: var(--crimson);
+    line-height: 1;
+    margin-bottom: 8px;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 2px;
+}
+
+.countdown-label {
+    font-size: 0.75rem;
+    color: var(--dark-soft);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+
+.countdown-item:not(:last-child)::after {
+    content: ':';
+    position: absolute;
+    right: -25px;
+    top: 10px;
+    color: var(--dark-soft);
+    opacity: 0.3;
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+/* ========== MINIMAL LINE ========== */
+.minimal-line {
+    width: 100px;
+    height: 1px;
+    background: var(--dark-soft);
+    opacity: 0.2;
+    margin: 0 auto 25px;
+}
+
+/* ========== LAUNCH DATE ========== */
+.launch-date span {
+    font-family: 'Playfair Display', serif;
+    color: var(--dark-soft);
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 400;
+    opacity: 0.7;
 }
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
     .coming-soon-container {
         padding: 40px 20px;
+        width: 95%;
     }
     
-    .countdown-timer {
-        gap: 15px;
+    .logo {
+        height: 50px;
     }
     
-    .timer-box {
-        min-width: 90px;
-        padding: 15px;
+    .countdown {
+        gap: 20px;
+        flex-wrap: wrap;
     }
     
-    .timer-number {
-        font-size: 2rem;
+    .countdown-item {
+        min-width: 70px;
     }
     
-    .form-group {
-        flex-direction: column;
-        background: transparent;
-        box-shadow: none;
-        padding: 0;
+    .countdown-number {
+        font-size: 2.2rem;
     }
     
-    .form-group input {
-        border: 1px solid rgba(223, 34, 41, 0.2);
+    .countdown-item:not(:last-child)::after {
+        right: -15px;
+        font-size: 1.5rem;
     }
     
-    .notify-btn {
-        width: 100%;
-        justify-content: center;
+    .title-line.accent::before,
+    .title-line.accent::after {
+        width: 15px;
     }
     
-    .knitting-needles {
-        gap: 15px;
-    }
-    
-    .needle {
-        width: 70px;
-    }
-    
-    .contact-info {
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
+    .divider span:nth-child(1),
+    .divider span:nth-child(3) {
+        width: 40px;
     }
 }
 
 @media (max-width: 480px) {
-    .logo {
-        height: 60px;
+    .coming-soon-container {
+        padding: 30px 15px;
     }
     
-    .brand-name {
-        font-size: 1.5rem;
-    }
-    
-    .coming-soon-title {
-        font-size: 1.8rem;
-    }
-    
-    .countdown-timer {
+    .countdown {
         gap: 10px;
     }
     
-    .timer-box {
-        min-width: 70px;
-        padding: 12px;
+    .countdown-item {
+        min-width: 60px;
     }
     
-    .timer-number {
-        font-size: 1.5rem;
+    .countdown-number {
+        font-size: 1.8rem;
     }
     
-    .timer-label {
-        font-size: 0.7rem;
+    .countdown-label {
+        font-size: 0.65rem;
+        letter-spacing: 1px;
     }
+    
+    .countdown-item:not(:last-child)::after {
+        display: none;
+    }
+    
+    .main-title {
+        font-size: 2rem;
+    }
+    
+    .title-line.accent {
+        padding: 0 10px;
+    }
+    
+    .title-line.accent::before,
+    .title-line.accent::after {
+        width: 10px;
+    }
+}
+
+/* ========== LANDSCAPE ORIENTATION ========== */
+@media (max-height: 600px) and (orientation: landscape) {
+    .coming-soon-container {
+        padding: 20px 30px;
+    }
+    
+    .logo-wrapper {
+        margin-bottom: 15px;
+    }
+    
+    .logo {
+        height: 40px;
+    }
+    
+    .divider {
+        margin-bottom: 15px;
+    }
+    
+    .main-title {
+        margin-bottom: 10px;
+    }
+    
+    .description {
+        margin-bottom: 15px;
+    }
+    
+    .countdown {
+        margin-bottom: 15px;
+    }
+}
+
+/* ========== THREAD TIES BACKGROUND ========== */
+.thread-ties {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.tie-group {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+/* Horizontal threads connecting elements */
+.horizontal-thread {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--crimson) 20%, 
+        var(--orchid) 50%, 
+        var(--crimson) 80%, 
+        transparent
+    );
+    opacity: 0.15;
+    animation: threadPulse 4s infinite ease-in-out;
+}
+
+/* Vertical threads */
+.vertical-thread {
+    position: absolute;
+    width: 1px;
+    background: linear-gradient(180deg, 
+        transparent, 
+        var(--crimson) 20%, 
+        var(--orchid) 50%, 
+        var(--crimson) 80%, 
+        transparent
+    );
+    opacity: 0.15;
+    animation: threadPulseVertical 4s infinite ease-in-out;
+}
+
+/* Thread knots (ties) */
+.thread-knot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle at 30% 30%, var(--crimson), var(--orchid));
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.2;
+    animation: knotGlow 3s infinite ease-in-out;
+    box-shadow: 0 0 10px rgba(223, 34, 41, 0.3);
+}
+
+.thread-knot::before,
+.thread-knot::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 2px;
+    background: var(--crimson);
+    opacity: 0.3;
+    top: 50%;
+    left: 50%;
+}
+
+.thread-knot::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.thread-knot::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Diagonal crossing threads */
+.diagonal-thread-1 {
+    position: absolute;
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(135deg, 
+        transparent, 
+        var(--crimson) 30%, 
+        var(--orchid) 70%, 
+        transparent
+    );
+    transform: rotate(45deg);
+    opacity: 0.1;
+    animation: diagonalMove 8s infinite alternate;
+}
+
+.diagonal-thread-2 {
+    position: absolute;
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(225deg, 
+        transparent, 
+        var(--crimson) 30%, 
+        var(--orchid) 70%, 
+        transparent
+    );
+    transform: rotate(-45deg);
+    opacity: 0.1;
+    animation: diagonalMoveReverse 8s infinite alternate;
+}
+
+/* Thread intersections */
+.thread-intersection {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--crimson);
+    border-radius: 50%;
+    opacity: 0.15;
+    animation: intersectionPulse 2s infinite;
+}
+
+/* Woven pattern overlay */
+.woven-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 20px,
+            rgba(223, 34, 41, 0.02) 20px,
+            rgba(223, 34, 41, 0.02) 21px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 20px,
+            rgba(225, 140, 148, 0.02) 20px,
+            rgba(225, 140, 148, 0.02) 21px
+        );
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+}
+
+/* Thread tie animations */
+@keyframes threadPulse {
+    0%, 100% {
+        opacity: 0.1;
+        transform: scaleX(1);
+    }
+    50% {
+        opacity: 0.2;
+        transform: scaleX(1.05);
+    }
+}
+
+@keyframes threadPulseVertical {
+    0%, 100% {
+        opacity: 0.1;
+        transform: scaleY(1);
+    }
+    50% {
+        opacity: 0.2;
+        transform: scaleY(1.05);
+    }
+}
+
+@keyframes knotGlow {
+    0%, 100% {
+        opacity: 0.15;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 0.25;
+        transform: translate(-50%, -50%) scale(1.2);
+        box-shadow: 0 0 15px rgba(223, 34, 41, 0.5);
+    }
+}
+
+@keyframes diagonalMove {
+    0% {
+        transform: rotate(45deg) translateX(0);
+        opacity: 0.05;
+    }
+    100% {
+        transform: rotate(45deg) translateX(20px);
+        opacity: 0.15;
+    }
+}
+
+@keyframes diagonalMoveReverse {
+    0% {
+        transform: rotate(-45deg) translateX(0);
+        opacity: 0.05;
+    }
+    100% {
+        transform: rotate(-45deg) translateX(-20px);
+        opacity: 0.15;
+    }
+}
+
+@keyframes intersectionPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.2;
+    }
+}
+
+/* Position specific thread ties */
+.tie-1 {
+    top: 20%;
+    left: 10%;
+}
+
+.tie-2 {
+    top: 40%;
+    right: 15%;
+}
+
+.tie-3 {
+    bottom: 30%;
+    left: 20%;
+}
+
+.tie-4 {
+    bottom: 20%;
+    right: 25%;
+}
+
+.tie-5 {
+    top: 60%;
+    left: 50%;
+}
+
+.tie-6 {
+    top: 30%;
+    left: 70%;
+}
+
+.tie-7 {
+    bottom: 40%;
+    right: 40%;
+}
+
+.tie-8 {
+    top: 70%;
+    right: 60%;
+}
+
+/* Update main container to have relative positioning for absolute children */
+.coming-soon-container {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 60px 40px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(223, 34, 41, 0.1);
+    max-height: 90vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    isolation: isolate; /* Creates new stacking context */
 }
