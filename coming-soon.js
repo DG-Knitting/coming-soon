@@ -1,9 +1,8 @@
 // ========== COUNTDOWN TIMER ==========
-// Set the launch date (adjust this to your actual launch date)
-const launchDate = new Date('June 1, 2025 00:00:00').getTime();
+// Set launch date to March 30, 2026
+const launchDate = new Date('March 30, 2026 00:00:00').getTime();
 
-// Update countdown every second
-const countdownTimer = setInterval(function() {
+function updateCountdown() {
     const now = new Date().getTime();
     const distance = launchDate - now;
 
@@ -13,97 +12,133 @@ const countdownTimer = setInterval(function() {
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    // Display the result
-    document.getElementById('days').innerHTML = String(days).padStart(2, '0');
-    document.getElementById('hours').innerHTML = String(hours).padStart(2, '0');
-    document.getElementById('minutes').innerHTML = String(minutes).padStart(2, '0');
-    document.getElementById('seconds').innerHTML = String(seconds).padStart(2, '0');
+    // Get elements
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    // Update if elements exist
+    if (daysEl) daysEl.innerHTML = String(days).padStart(2, '0');
+    if (hoursEl) hoursEl.innerHTML = String(hours).padStart(2, '0');
+    if (minutesEl) minutesEl.innerHTML = String(minutes).padStart(2, '0');
+    if (secondsEl) secondsEl.innerHTML = String(seconds).padStart(2, '0');
 
     // If the countdown is finished
     if (distance < 0) {
         clearInterval(countdownTimer);
-        document.getElementById('days').innerHTML = '00';
-        document.getElementById('hours').innerHTML = '00';
-        document.getElementById('minutes').innerHTML = '00';
-        document.getElementById('seconds').innerHTML = '00';
-    }
-}, 1000);
-
-// ========== PROGRESS BAR ==========
-// Simulate website completion progress (adjust as needed)
-let progress = 75;
-const progressBar = document.getElementById('progressBar');
-const progressText = document.getElementById('progressPercentage');
-
-// Animate progress bar
-function updateProgress() {
-    // Randomly increase progress slowly (for demo effect)
-    if (progress < 95) {
-        progress += Math.random() * 0.5;
-        if (progress > 95) progress = 95;
+        if (daysEl) daysEl.innerHTML = '00';
+        if (hoursEl) hoursEl.innerHTML = '00';
+        if (minutesEl) minutesEl.innerHTML = '00';
+        if (secondsEl) secondsEl.innerHTML = '00';
         
-        progressBar.style.width = progress + '%';
-        progressText.textContent = Math.floor(progress) + '%';
+        // Show launch message
+        const launchElement = document.querySelector('.launch-date span');
+        if (launchElement) {
+            launchElement.innerHTML = 'Now Live!';
+        }
     }
 }
 
-// Update progress every 30 seconds (for demo)
-setInterval(updateProgress, 30000);
+// Start countdown
+const countdownTimer = setInterval(updateCountdown, 1000);
+updateCountdown();
 
-// ========== NOTIFY FORM ==========
-document.getElementById('notifyForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+// ========== RANDOM WORM THREAD GENERATOR ==========
+function createRandomWorm() {
+    const container = document.querySelector('.worm-threads');
+    if (!container) return;
     
-    const email = this.querySelector('input[type="email"]').value;
-    const button = this.querySelector('.notify-btn');
-    const originalText = button.innerHTML;
+    const worm = document.createElement('div');
+    worm.className = 'worm';
     
-    // Simulate form submission
-    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-    button.disabled = true;
+    // Random size between 100px and 600px
+    const size = Math.floor(Math.random() * 500) + 100;
+    worm.style.width = size + 'px';
+    worm.style.height = size + 'px';
+    
+    // Random position
+    worm.style.top = Math.random() * 100 + '%';
+    worm.style.left = Math.random() * 100 + '%';
+    
+    // Random border width
+    worm.style.borderWidth = (Math.random() * 2 + 0.5) + 'px';
+    
+    // Random colors
+    const colors = ['var(--crimson)', 'var(--orchid)'];
+    const color1 = colors[Math.floor(Math.random() * colors.length)];
+    const color2 = colors[Math.floor(Math.random() * colors.length)];
+    worm.style.borderTopColor = color1;
+    worm.style.borderRightColor = color2;
+    
+    // Random opacity
+    worm.style.opacity = Math.random() * 0.15 + 0.05;
+    
+    // Random animation duration
+    const duration = Math.floor(Math.random() * 40) + 20;
+    worm.style.animation = `wormMove ${duration}s infinite linear`;
+    
+    // Random direction
+    if (Math.random() > 0.5) {
+        worm.style.animationDirection = 'reverse';
+    }
+    
+    container.appendChild(worm);
+    
+    // Remove after animation cycle
+    setTimeout(() => {
+        if (worm && worm.parentNode) {
+            worm.remove();
+        }
+    }, duration * 1000);
+}
+
+// Create a new random worm every 30 seconds
+setInterval(createRandomWorm, 30000);
+
+// Create a few on load
+for (let i = 0; i < 3; i++) {
+    setTimeout(createRandomWorm, i * 5000);
+}
+
+// ========== SMOOTH FADE IN ==========
+window.addEventListener('load', function() {
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 1.5s ease';
     
     setTimeout(() => {
-        button.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
-        button.style.background = '#28a745';
-        
-        // Show success message
-        const note = document.querySelector('.form-note');
-        note.innerHTML = '✓ Thank you! We\'ll notify you when we launch.';
-        note.style.color = '#28a745';
-        
-        // Reset form
-        this.reset();
-        
-        setTimeout(() => {
-            button.innerHTML = originalText;
-            button.style.background = '';
-            button.disabled = false;
-            note.innerHTML = 'We\'ll never share your email. No spam, promise.';
-            note.style.color = '#999';
-        }, 3000);
-    }, 1500);
+        document.body.style.opacity = '1';
+    }, 100);
 });
 
-// ========== ADD KNOT ANIMATION ==========
-// Create floating knots on hover
-const yarnBall = document.querySelector('.yarn-ball');
+// ========== PREVENT SCROLLING ==========
+document.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+}, { passive: false });
 
-yarnBall.addEventListener('mouseenter', function() {
-    this.style.animation = 'yarnSpin 1s infinite linear';
-});
+document.addEventListener('wheel', function(e) {
+    e.preventDefault();
+}, { passive: false });
 
-yarnBall.addEventListener('mouseleave', function() {
-    this.style.animation = 'yarnSpin 4s infinite linear';
-});
+// Allow scrolling INSIDE the container if needed
+const container = document.querySelector('.coming-soon-container');
+if (container) {
+    container.addEventListener('wheel', function(e) {
+        e.stopPropagation();
+    });
+    
+    container.addEventListener('touchmove', function(e) {
+        e.stopPropagation();
+    }, { passive: true });
+}
 
 // ========== THREAD INTERACTION ==========
-// Make threads interactive on hover
-const threads = document.querySelectorAll('[class^="thread-"]');
+const threads = document.querySelectorAll('.thread-detail');
 
 threads.forEach(thread => {
     thread.addEventListener('mouseenter', function() {
-        this.style.opacity = '0.3';
-        this.style.transition = 'opacity 0.3s ease';
+        this.style.opacity = '0.25';
+        this.style.transition = 'opacity 0.5s ease';
     });
     
     thread.addEventListener('mouseleave', function() {
@@ -111,53 +146,97 @@ threads.forEach(thread => {
     });
 });
 
-// ========== RANDOM THREAD GENERATOR ==========
-// Add occasional new threads for visual interest
-function addRandomThread() {
-    const container = document.querySelector('.thread-background');
-    const newThread = document.createElement('div');
-    const randomClass = `thread-${Math.floor(Math.random() * 3) + 1}`;
+// ========== LOG CONFIRMATION ==========
+console.log('DG Knitting - Coming Soon page loaded with working animations');
+console.log('Launch date: March 30, 2026');
+
+// Add this to your existing coming-soon.js
+
+// ========== THREAD TIE INTERACTIONS ==========
+const knots = document.querySelectorAll('.thread-knot');
+const intersections = document.querySelectorAll('.thread-intersection');
+
+knots.forEach(knot => {
+    knot.addEventListener('mouseenter', function() {
+        this.style.opacity = '0.4';
+        this.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        this.style.transition = 'all 0.3s ease';
+        this.style.boxShadow = '0 0 20px rgba(223, 34, 41, 0.6)';
+    });
     
-    newThread.className = randomClass;
-    newThread.style.top = Math.random() * 100 + '%';
-    newThread.style.animation = `threadFloat ${15 + Math.random() * 10}s infinite linear`;
-    newThread.style.opacity = '0.05';
+    knot.addEventListener('mouseleave', function() {
+        this.style.opacity = '';
+        this.style.transform = '';
+        this.style.boxShadow = '';
+    });
+});
+
+intersections.forEach(intersection => {
+    intersection.addEventListener('mouseenter', function() {
+        this.style.opacity = '0.3';
+        this.style.transform = 'scale(2)';
+        this.style.backgroundColor = 'var(--orchid)';
+        this.style.transition = 'all 0.3s ease';
+    });
     
-    container.appendChild(newThread);
+    intersection.addEventListener('mouseleave', function() {
+        this.style.opacity = '';
+        this.style.transform = '';
+        this.style.backgroundColor = '';
+    });
+});
+
+// Animate threads randomly
+function animateRandomThread() {
+    const horizontals = document.querySelectorAll('.horizontal-thread');
+    const verticals = document.querySelectorAll('.vertical-thread');
+    
+    if (horizontals.length) {
+        const randomHorizontal = horizontals[Math.floor(Math.random() * horizontals.length)];
+        randomHorizontal.style.animation = 'threadPulse 2s infinite ease-in-out';
+    }
+    
+    if (verticals.length) {
+        const randomVertical = verticals[Math.floor(Math.random() * verticals.length)];
+        randomVertical.style.animation = 'threadPulseVertical 2.5s infinite ease-in-out';
+    }
+}
+
+setInterval(animateRandomThread, 5000);
+
+// Create a new knot occasionally
+function createRandomKnot() {
+    const container = document.querySelector('.thread-ties');
+    if (!container) return;
+    
+    const knot = document.createElement('div');
+    knot.className = 'thread-knot';
+    
+    // Random position within container
+    knot.style.top = (Math.random() * 80 + 10) + '%';
+    knot.style.left = (Math.random() * 80 + 10) + '%';
+    
+    // Random size
+    const size = Math.random() * 6 + 4;
+    knot.style.width = size + 'px';
+    knot.style.height = size + 'px';
+    
+    // Random color variation
+    if (Math.random() > 0.5) {
+        knot.style.background = 'radial-gradient(circle at 30% 30%, var(--orchid), var(--crimson))';
+    }
+    
+    container.appendChild(knot);
     
     // Remove after animation
     setTimeout(() => {
-        newThread.remove();
-    }, 30000);
+        if (knot && knot.parentNode) {
+            knot.style.opacity = '0';
+            knot.style.transition = 'opacity 1s ease';
+            setTimeout(() => knot.remove(), 1000);
+        }
+    }, 10000);
 }
 
-// Add a random thread every 10 seconds
-setInterval(addRandomThread, 10000);
-
-// ========== LOADING ANIMATION ==========
-// Add a subtle loading animation when page loads
-window.addEventListener('load', function() {
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 1s ease';
-    
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-    }, 100);
-    
-    console.log('DG Knitting - Coming Soon page loaded');
-});
-
-// ========== KNOT COUNT ==========
-// Display how many knots are in the animation (fun fact)
-const knotCount = document.createElement('div');
-knotCount.className = 'knot-count';
-knotCount.innerHTML = '🧶 1,247 knots in this animation';
-knotCount.style.cssText = `
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    font-size: 0.7rem;
-    color: #ccc;
-    z-index: 1000;
-`;
-document.body.appendChild(knotCount);
+// Create random knots occasionally
+setInterval(createRandomKnot, 15000);
