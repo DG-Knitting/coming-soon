@@ -8,85 +8,151 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="coming-soon.css">
 </head>
 <body>
-    <!-- Knitting Thread Animation Background -->
-    <div class="thread-background">
-        <div class="thread-1"></div>
-        <div class="thread-2"></div>
-        <div class="thread-3"></div>
-        <div class="thread-4"></div>
-        <div class="thread-5"></div>
+    <!-- Circular Worm Threads Background -->
+    <div class="worm-threads">
+        <div class="worm worm-1">
+            <div class="worm-inner"></div>
+        </div>
+        <div class="worm worm-2"></div>
+        <div class="worm worm-3">
+            <div class="worm-inner"></div>
+        </div>
+        <div class="worm worm-4"></div>
+        <div class="worm worm-5">
+            <div class="worm-inner"></div>
+        </div>
+        <div class="worm worm-6"></div>
+        <div class="worm worm-7"></div>
+        <div class="worm worm-8">
+            <div class="worm-inner"></div>
+        </div>
+        <div class="worm worm-9"></div>
+        <div class="worm worm-10"></div>
     </div>
 
-    <!-- Main Container -->
+    <!-- Elegant Silk Background -->
+    <div class="silk-bg">
+        <div class="silk-wave"></div>
+        <div class="silk-wave"></div>
+        <div class="silk-wave"></div>
+    </div>
+
+    <!-- Minimal Thread Details -->
+    <div class="thread-detail"></div>
+    <div class="thread-detail"></div>
+    <div class="thread-detail"></div>
+
+    <!-- Main Container with Thread Ties -->
     <div class="coming-soon-container">
-        <!-- Logo -->
-        <div class="logo-wrapper">
-            <img src="logo.png" alt="DG Knitting Logo" class="logo">
-            <h1 class="brand-name">DG Knitting</h1>
+        <!-- Woven Pattern Overlay -->
+        <div class="woven-overlay"></div>
+        
+        <!-- Thread Ties Background -->
+        <div class="thread-ties">
+            <!-- Horizontal connecting threads -->
+            <div class="horizontal-thread" style="top: 15%; left: 5%; width: 90%;"></div>
+            <div class="horizontal-thread" style="top: 45%; left: 5%; width: 90%;"></div>
+            <div class="horizontal-thread" style="top: 75%; left: 5%; width: 90%;"></div>
+            
+            <!-- Vertical connecting threads -->
+            <div class="vertical-thread" style="left: 15%; top: 5%; height: 90%;"></div>
+            <div class="vertical-thread" style="left: 45%; top: 5%; height: 90%;"></div>
+            <div class="vertical-thread" style="left: 75%; top: 5%; height: 90%;"></div>
+            
+            <!-- Diagonal crossing threads -->
+            <div class="diagonal-thread-1" style="top: 10%; left: 10%;"></div>
+            <div class="diagonal-thread-1" style="top: 30%; left: 30%;"></div>
+            <div class="diagonal-thread-1" style="top: 50%; left: 50%;"></div>
+            <div class="diagonal-thread-2" style="top: 20%; right: 10%;"></div>
+            <div class="diagonal-thread-2" style="top: 40%; right: 30%;"></div>
+            <div class="diagonal-thread-2" style="top: 60%; right: 50%;"></div>
+            
+            <!-- Thread knots (ties) at intersections -->
+            <div class="thread-knot" style="top: 15%; left: 15%;"></div>
+            <div class="thread-knot" style="top: 15%; left: 45%;"></div>
+            <div class="thread-knot" style="top: 15%; left: 75%;"></div>
+            
+            <div class="thread-knot" style="top: 45%; left: 15%;"></div>
+            <div class="thread-knot" style="top: 45%; left: 45%;"></div>
+            <div class="thread-knot" style="top: 45%; left: 75%;"></div>
+            
+            <div class="thread-knot" style="top: 75%; left: 15%;"></div>
+            <div class="thread-knot" style="top: 75%; left: 45%;"></div>
+            <div class="thread-knot" style="top: 75%; left: 75%;"></div>
+            
+            <!-- Additional decorative knots -->
+            <div class="thread-knot" style="top: 30%; left: 30%;"></div>
+            <div class="thread-knot" style="top: 30%; left: 60%;"></div>
+            <div class="thread-knot" style="top: 60%; left: 30%;"></div>
+            <div class="thread-knot" style="top: 60%; left: 60%;"></div>
+            
+            <!-- Thread intersections -->
+            <div class="thread-intersection" style="top: 22%; left: 22%;"></div>
+            <div class="thread-intersection" style="top: 22%; left: 52%;"></div>
+            <div class="thread-intersection" style="top: 22%; left: 82%;"></div>
+            <div class="thread-intersection" style="top: 52%; left: 22%;"></div>
+            <div class="thread-intersection" style="top: 52%; left: 52%;"></div>
+            <div class="thread-intersection" style="top: 52%; left: 82%;"></div>
+            <div class="thread-intersection" style="top: 82%; left: 22%;"></div>
+            <div class="thread-intersection" style="top: 82%; left: 52%;"></div>
+            <div class="thread-intersection" style="top: 82%; left: 82%;"></div>
         </div>
 
-        <!-- Knitting Needles Animation -->
-        <div class="knitting-needles">
-            <div class="needle left-needle">
-                <div class="needle-tip"></div>
-                <div class="needle-body"></div>
-            </div>
-            <div class="yarn-ball">
-                <div class="yarn-circle"></div>
-                <div class="yarn-thread"></div>
-            </div>
-            <div class="needle right-needle">
-                <div class="needle-tip"></div>
-                <div class="needle-body"></div>
-            </div>
+        <!-- Logo -->
+        <div class="logo-wrapper">
+            <img src="logo.png" alt="DG Knitting" class="logo">
+        </div>
+
+        <!-- Elegant Divider -->
+        <div class="divider">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
 
         <!-- Main Message -->
-        <h2 class="coming-soon-title">
-            <span class="title-word">We're</span>
-            <span class="title-word highlight">Knitting</span>
-            <span class="title-word">Something</span>
-            <span class="title-word">Special</span>
-        </h2>
+        <h1 class="main-title">
+            <span class="title-line">Something</span>
+            <span class="title-line accent">Exceptional</span>
+            <span class="title-line">is Coming</span>
+        </h1>
 
-        <p class="coming-soon-text">
-            Our new website is currently in the making. We're weaving together premium quality 
-            and innovative designs to bring you the finest knitted fabrics.
+        <p class="description">
+            For over two decades, we've woven precision into every thread. 
+            Our new digital space is being crafted with the same meticulous attention to detail.
         </p>
 
-        <!-- Countdown Timer -->
-        <div class="countdown-timer">
-            <div class="timer-box">
-                <span class="timer-number" id="days">15</span>
-                <span class="timer-label">Days</span>
+        <!-- Refined Countdown -->
+        <div class="countdown">
+            <div class="countdown-item">
+                <span class="countdown-number" id="days">00</span>
+                <span class="countdown-label">Days</span>
             </div>
-            <div class="timer-box">
-                <span class="timer-number" id="hours">00</span>
-                <span class="timer-label">Hours</span>
+            <div class="countdown-item">
+                <span class="countdown-number" id="hours">00</span>
+                <span class="countdown-label">Hours</span>
             </div>
-            <div class="timer-box">
-                <span class="timer-number" id="minutes">00</span>
-                <span class="timer-label">Minutes</span>
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutes">00</span>
+                <span class="countdown-label">Minutes</span>
             </div>
-            <div class="timer-box">
-                <span class="timer-number" id="seconds">00</span>
-                <span class="timer-label">Seconds</span>
+            <div class="countdown-item">
+                <span class="countdown-number" id="seconds">00</span>
+                <span class="countdown-label">Seconds</span>
             </div>
         </div>
 
-        <!-- Progress Bar -->
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-        <p class="progress-text">Website completion: <span id="progressPercentage">15%</span></p>
+        <!-- Minimal Line -->
+        <div class="minimal-line"></div>
 
+        <!-- Launch Date -->
+        <div class="launch-date">
+            <span>Launching March 30, 2026</span>
+        </div>
     </div>
 
     <!-- JavaScript -->
