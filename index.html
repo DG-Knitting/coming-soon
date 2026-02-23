@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DG Knitting | Coming Soon</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="coming-soon.css">
+</head>
+<body>
+    <!-- Knitting Thread Animation Background -->
+    <div class="thread-background">
+        <div class="thread-1"></div>
+        <div class="thread-2"></div>
+        <div class="thread-3"></div>
+        <div class="thread-4"></div>
+        <div class="thread-5"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="coming-soon-container">
+        <!-- Logo -->
+        <div class="logo-wrapper">
+            <img src="logo.png" alt="DG Knitting Logo" class="logo">
+            <h1 class="brand-name">DG Knitting</h1>
+        </div>
+
+        <!-- Knitting Needles Animation -->
+        <div class="knitting-needles">
+            <div class="needle left-needle">
+                <div class="needle-tip"></div>
+                <div class="needle-body"></div>
+            </div>
+            <div class="yarn-ball">
+                <div class="yarn-circle"></div>
+                <div class="yarn-thread"></div>
+            </div>
+            <div class="needle right-needle">
+                <div class="needle-tip"></div>
+                <div class="needle-body"></div>
+            </div>
+        </div>
+
+        <!-- Main Message -->
+        <h2 class="coming-soon-title">
+            <span class="title-word">We're</span>
+            <span class="title-word highlight">Knitting</span>
+            <span class="title-word">Something</span>
+            <span class="title-word">Special</span>
+        </h2>
+
+        <p class="coming-soon-text">
+            Our new website is currently in the making. We're weaving together premium quality 
+            and innovative designs to bring you the finest knitted fabrics.
+        </p>
+
+        <!-- Countdown Timer -->
+        <div class="countdown-timer">
+            <div class="timer-box">
+                <span class="timer-number" id="days">15</span>
+                <span class="timer-label">Days</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-number" id="hours">00</span>
+                <span class="timer-label">Hours</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-number" id="minutes">00</span>
+                <span class="timer-label">Minutes</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-number" id="seconds">00</span>
+                <span class="timer-label">Seconds</span>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <p class="progress-text">Website completion: <span id="progressPercentage">15%</span></p>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script src="coming-soon.js"></script>
+</body>
+</html>
